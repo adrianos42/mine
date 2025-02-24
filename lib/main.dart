@@ -65,43 +65,6 @@ class _MyHomePageState extends State<MyHomePage> {
               title: 'Desktop Charts',
               url: 'https://adrianos42.github.io/desktop_charts/',
             ),
-            Padding(
-              padding: EdgeInsets.only(top: 24.0),
-              child: _Subheader('Other'),
-            ),
-            _Title('Composers'),
-            _Text(
-              'Franz Schubert',
-            ),
-            _Text(
-              'Wolfgang Amadeus Mozart',
-            ),
-            _Text(
-              'Ludwig van Beethoven',
-            ),
-            _Text(
-              'Dmitri Shostakovich',
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 12.0),
-              child: _Title('Operas'),
-            ),
-            _Text(
-              'Don Giovanni',
-            ),
-            _Text(
-              'Le Nozze di Figaro',
-            ),
-            Padding(
-              padding: EdgeInsets.only(top: 12.0),
-              child: _Title('Interests'),
-            ),
-            _Text(
-              'Computer Science',
-            ),
-            _Text(
-              'Literature',
-            ),
           ],
         ),
       ],

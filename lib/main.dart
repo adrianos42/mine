@@ -5,6 +5,8 @@ void main() {
   runApp(const MyApp());
 }
 
+const _kFontFamily = 'IBM Plex Mono';
+
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
@@ -26,61 +28,140 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   @override
   Widget build(BuildContext context) {
-    final dialogTheme = DialogTheme.of(context);
-
-    return Stack(
-      fit: StackFit.expand,
+    return Column(
       children: [
         Container(
           padding: const EdgeInsets.all(20.0),
           alignment: Alignment.topCenter,
           child: Text(
-            'adrianosouza.dev',
-            style: Theme.of(context).textTheme.header,
+            'Adriano Souza',
+            style: Theme.of(context)
+                .textTheme
+                .header
+                .copyWith(fontFamily: _kFontFamily),
           ),
         ),
-        DecoratedBox(
-          decoration: BoxDecoration(
-            color: dialogTheme.barrierColor!,
-          ),
-          child: BackdropFilter(
-            filter: dialogTheme.imageFilter!,
-            child: Center(
-              child: ListView(
-                shrinkWrap: true,
-                padding: const EdgeInsets.symmetric(horizontal: 20.0),
-                children: const [
-                  _ProjectItem(
-                    title: 'Desktop',
-                    url: 'adrianos42.github.io/desktop/',
-                  ),
-                  // Padding(
-                  //   padding: EdgeInsets.only(top: 20.0),
-                  //   child: _ProjectItem(
-                  //     title: 'Data IDL',
-                  //     url: '',
-                  //   ),
-                  // ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 20.0),
-                    child: _ProjectItem(
-                      title: 'Sudoku',
-                      url: 'adrianos42.github.io/sudoku/',
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsets.only(top: 20.0),
-                    child: _ProjectItem(
-                      title: 'Desktop Charts',
-                      url: 'adrianos42.github.io/desktop_charts/',
-                    ),
-                  ),
-                ],
-              ),
+        ListView(
+          shrinkWrap: true,
+          padding: const EdgeInsets.symmetric(horizontal: 20.0),
+          children: const [
+            _Subheader('Projects'),
+            _ProjectItem(
+              title: 'Desktop',
+              url: 'https://adrianos42.github.io/desktop/',
             ),
-          ),
+            // Padding(
+            //   padding: EdgeInsets.only(top: 20.0),
+            //   child: _ProjectItem(
+            //     title: 'Data IDL',
+            //     url: '',
+            //   ),
+            // ),
+            _ProjectItem(
+              title: 'Sudoku',
+              url: 'https://adrianos42.github.io/sudoku/',
+            ),
+            _ProjectItem(
+              title: 'Desktop Charts',
+              url: 'https://adrianos42.github.io/desktop_charts/',
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 24.0),
+              child: _Subheader('Other'),
+            ),
+            _Title('Composers'),
+            _Text(
+              'Franz Schubert',
+            ),
+            _Text(
+              'Wolfgang Amadeus Mozart',
+            ),
+            _Text(
+              'Ludwig van Beethoven',
+            ),
+            _Text(
+              'Dmitri Shostakovich',
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 12.0),
+              child: _Title('Operas'),
+            ),
+            _Text(
+              'Don Giovanni',
+            ),
+            _Text(
+              'Le Nozze di Figaro',
+            ),
+            Padding(
+              padding: EdgeInsets.only(top: 12.0),
+              child: _Title('Interests'),
+            ),
+            _Text(
+              'Computer Science',
+            ),
+            _Text(
+              'Literature',
+            ),
+          ],
         ),
       ],
+    );
+  }
+}
+
+class _Title extends StatelessWidget {
+  const _Title(this.title);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 12.0),
+      child: Text(
+        title,
+        style: textTheme.title.copyWith(fontFamily: _kFontFamily),
+      ),
+    );
+  }
+}
+
+class _Subheader extends StatelessWidget {
+  const _Subheader(this.title);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 12.0),
+      child: Text(
+        title,
+        style: textTheme.subheader.copyWith(fontFamily: _kFontFamily),
+      ),
+    );
+  }
+}
+
+class _Text extends StatelessWidget {
+  const _Text(this.title);
+
+  final String title;
+
+  @override
+  Widget build(BuildContext context) {
+    final textTheme = Theme.of(context).textTheme;
+
+    return Container(
+      padding: const EdgeInsets.symmetric(vertical: 12.0, horizontal: 32.0),
+      child: Text(
+        title,
+        style: textTheme.body1.copyWith(fontFamily: _kFontFamily),
+      ),
     );
   }
 }
@@ -88,35 +169,34 @@ class _MyHomePageState extends State<MyHomePage> {
 class _ProjectItem extends StatelessWidget {
   const _ProjectItem({
     required this.title,
-    required this.url,
+    this.url,
   });
 
   final String title;
-  final String url;
+  final String? url;
 
   @override
   Widget build(BuildContext context) {
     final textTheme = Theme.of(context).textTheme;
-    final colorScheme = Theme.of(context).colorScheme;
 
-    return Container(
-      decoration: BoxDecoration(color: colorScheme.background[0]),
-      padding: const EdgeInsets.all(20.0),
+    return Padding(
+      padding: const EdgeInsets.all(12.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             title,
-            style: textTheme.title,
+            style: textTheme.title.copyWith(fontFamily: _kFontFamily),
           ),
-          Padding(
-            padding: const EdgeInsets.only(top: 12.0),
-            child: HyperlinkButton(
-              url,
-              padding: EdgeInsets.zero,
-              onPressed: (url) async => await launchUrl(Uri.parse(url)),
+          if (url != null)
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: HyperlinkButton(
+                url!,
+                padding: EdgeInsets.zero,
+                onPressed: (url) async => await launchUrl(Uri.parse(url)),
+              ),
             ),
-          ),
         ],
       ),
     );
